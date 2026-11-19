@@ -1,0 +1,1255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Clearwell Dermatology</title>
+<meta name="description" content="Clearwell — board-certified dermatology for every kind of skin. Medical, cosmetic and preventive care with same-week appointments." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+        },
+        colors: {
+          bg: '#F2F1ED',
+          ink: '#1A1A18',
+          muted: '#8C8B85',
+          peach: { DEFAULT: '#F2A385', deep: '#EC8F6C', soft: '#F9DCCF' },
+        },
+        maxWidth: { site: '1440px' },
+      },
+    },
+  };
+</script>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+
+<style>
+  :root {
+    --bg: #F2F1ED;
+    --bg-2: #EAE9E4;
+    --surface: #FFFFFF;
+    --ink: #1A1A18;
+    --ink-2: #4A4A46;
+    --muted: #8C8B85;
+    --line: rgba(26, 26, 24, 0.08);
+    --peach: #F2A385;
+    --peach-deep: #EC8F6C;
+    --peach-ink: #2E140A;
+    --radius-xl: 28px;
+    --radius-lg: 20px;
+    --ease: cubic-bezier(.22, 1, .36, 1);
+    --ease-in-out: cubic-bezier(.65, 0, .35, 1);
+  }
+
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-stopped { overflow: hidden; }
+
+  * { -webkit-tap-highlight-color: transparent; }
+  html { background: var(--bg); }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--peach); color: var(--peach-ink); }
+  img { user-select: none; -webkit-user-drag: none; }
+
+  /* ---------- Type ---------- */
+  .display {
+    font-weight: 400;
+    letter-spacing: -0.052em;
+    line-height: 0.98;
+    word-spacing: -0.02em;
+  }
+  .h2 {
+    font-weight: 400;
+    letter-spacing: -0.045em;
+    line-height: 1.02;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .eyebrow::before {
+    content: ""; width: 5px; height: 5px; border-radius: 99px; background: var(--peach-deep);
+  }
+  .mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+  .muted { color: var(--muted); }
+
+  /* ---------- Surfaces ---------- */
+  .glass {
+    background: rgba(255, 255, 255, 0.58);
+    -webkit-backdrop-filter: blur(18px) saturate(1.5);
+    backdrop-filter: blur(18px) saturate(1.5);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    box-shadow: 0 1px 0 rgba(255,255,255,.6) inset, 0 12px 32px -14px rgba(40, 24, 12, 0.22);
+  }
+  .card-white {
+    background: #fff;
+    border: 1px solid var(--line);
+    box-shadow: 0 18px 40px -22px rgba(40, 24, 12, 0.28), 0 2px 6px -2px rgba(40,24,12,.06);
+  }
+  .media { overflow: hidden; background: linear-gradient(135deg, #ECE6DF, #F6EEE8 55%, #F2DCCF); }
+  .media:not(.absolute):not(.svc-slide):not(.how-img):not(#cursor-img) { position: relative; }
+  .media > img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .media.is-fallback > img { opacity: 0; }
+  .media.is-fallback::after {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(60% 60% at 30% 30%, rgba(242,163,133,.35), transparent 70%),
+      radial-gradient(50% 50% at 75% 70%, rgba(255,255,255,.8), transparent 70%);
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn-peach {
+    position: relative; display: inline-flex; align-items: center; gap: 10px;
+    height: 44px; padding: 0 8px 0 20px; border-radius: 999px;
+    background: var(--peach); color: var(--peach-ink);
+    font-size: 13.5px; font-weight: 500; letter-spacing: -0.01em;
+    transition: background .4s var(--ease), transform .4s var(--ease), box-shadow .4s var(--ease);
+    box-shadow: 0 10px 24px -12px rgba(236, 143, 108, .8), inset 0 1px 0 rgba(255,255,255,.35);
+    overflow: hidden; isolation: isolate;
+  }
+  .btn-peach .arrow {
+    width: 30px; height: 30px; border-radius: 99px; display: grid; place-items: center;
+    background: rgba(255,255,255,.35); transition: transform .5s var(--ease), background .4s;
+  }
+  .btn-peach:hover { background: var(--peach-deep); transform: translateY(-1px); }
+  .btn-peach:hover .arrow { transform: rotate(-45deg); background: rgba(255,255,255,.55); }
+  .btn-peach .label { position: relative; display: inline-block; overflow: hidden; height: 1.2em; line-height: 1.2em; }
+  .btn-peach .label span { display: block; transition: transform .5s var(--ease); }
+  .btn-peach .label span + span { position: absolute; left: 0; top: 100%; }
+  .btn-peach:hover .label span { transform: translateY(-100%); }
+  .btn-peach.no-arrow { padding: 0 20px; }
+
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 18px; border-radius: 999px;
+    border: 1px solid var(--line); background: rgba(255,255,255,.5); font-size: 13.5px; font-weight: 500;
+    transition: background .3s, border-color .3s;
+  }
+  .btn-ghost:hover { background: #fff; border-color: rgba(0,0,0,.14); }
+
+  .icon-btn {
+    width: 40px; height: 40px; border-radius: 99px; display: grid; place-items: center;
+    transition: transform .4s var(--ease), background .3s;
+  }
+  .icon-btn:hover { transform: scale(1.06); }
+
+  /* ---------- Preloader ---------- */
+  #loader {
+    position: fixed; inset: 0; z-index: 100; background: var(--bg);
+    display: grid; place-items: center;
+    transition: opacity .9s var(--ease), visibility .9s;
+  }
+  #loader .brand-mark { opacity: 0; transform: translateY(6px); animation: loaderIn .9s var(--ease) .1s forwards; }
+  #loader .bar { width: 120px; height: 1px; background: var(--line); margin-top: 18px; overflow: hidden; border-radius: 2px; }
+  #loader .bar i { display: block; height: 100%; width: 0; background: var(--ink); animation: loadBar 1.2s var(--ease-in-out) .2s forwards; }
+  body.loaded #loader { opacity: 0; visibility: hidden; }
+  @keyframes loaderIn { to { opacity: 1; transform: none; } }
+  @keyframes loadBar { to { width: 100%; } }
+
+  /* ---------- Navbar ---------- */
+  #nav { transition: transform .6s var(--ease); }
+  #nav .brand-pill { transition: background .5s var(--ease), box-shadow .5s, border-color .5s, padding .5s var(--ease); border: 1px solid transparent; }
+  #nav .nav-links { transition: opacity .45s var(--ease), transform .55s var(--ease), filter .45s; }
+  #nav .nav-links a { position: relative; color: var(--ink-2); transition: color .3s; }
+  #nav .nav-links a::after {
+    content: ""; position: absolute; left: 50%; bottom: -6px; width: 3px; height: 3px; border-radius: 9px;
+    background: var(--peach-deep); transform: translateX(-50%) scale(0); transition: transform .35s var(--ease);
+  }
+  #nav .nav-links a:hover { color: var(--ink); }
+  #nav .nav-links a:hover::after, #nav .nav-links a.active::after { transform: translateX(-50%) scale(1); }
+  #nav .nav-compact {
+    opacity: 0; transform: translate(-50%, -10px) scale(.96); pointer-events: none; filter: blur(4px);
+    transition: opacity .45s var(--ease), transform .55s var(--ease), filter .45s;
+  }
+  #nav .nav-cta { transition: background .5s var(--ease), color .4s, box-shadow .5s, padding .5s var(--ease); }
+  #nav.scrolled .brand-pill {
+    background: rgba(255,255,255,.58); border-color: rgba(255,255,255,.75);
+    -webkit-backdrop-filter: blur(18px) saturate(1.5); backdrop-filter: blur(18px) saturate(1.5);
+    box-shadow: 0 12px 32px -14px rgba(40,24,12,.22);
+  }
+  #nav.scrolled .nav-links { opacity: 0; transform: translateY(-10px); pointer-events: none; filter: blur(4px); }
+  #nav.scrolled .nav-compact { opacity: 1; transform: translate(-50%, 0) scale(1); pointer-events: auto; filter: none; }
+  #nav.scrolled .nav-cta { background: var(--peach); color: var(--peach-ink); box-shadow: 0 10px 24px -12px rgba(236,143,108,.8); }
+  #nav.scrolled .menu-btn { background: rgba(255,255,255,.58); border-color: rgba(255,255,255,.75); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); }
+  #nav.hide { transform: translateY(-110%); }
+  .compact-label { display: inline-block; min-width: 92px; text-align: left; }
+  .compact-label span { display: inline-block; transition: transform .45s var(--ease), opacity .3s; }
+  .compact-label.swap span { transform: translateY(-60%); opacity: 0; }
+
+  /* ---------- Menu overlay ---------- */
+  #menu {
+    position: fixed; inset: 0; z-index: 70; background: var(--bg);
+    clip-path: inset(0 0 100% 0); transition: clip-path .9s var(--ease-in-out); pointer-events: none;
+  }
+  body.menu-open #menu { clip-path: inset(0 0 0 0); pointer-events: auto; }
+  #menu .m-link { display: block; overflow: hidden; }
+  #menu .m-link > span { display: flex; align-items: baseline; gap: 18px; transform: translateY(110%); transition: transform .9s var(--ease); }
+  body.menu-open #menu .m-link > span { transform: none; }
+  #menu .m-link:hover .m-text { color: var(--peach-deep); transform: translateX(10px); }
+  #menu .m-text { transition: color .3s, transform .5s var(--ease); display: inline-block; }
+  .menu-btn .l1, .menu-btn .l2 { transition: transform .5s var(--ease); transform-origin: center; }
+  body.menu-open .menu-btn .l1 { transform: translateY(3px) rotate(45deg); }
+  body.menu-open .menu-btn .l2 { transform: translateY(-3px) rotate(-45deg); }
+
+  /* ---------- Reveal ---------- */
+  [data-reveal] { opacity: 0; transform: translateY(28px); filter: blur(8px); transition: opacity 1.1s var(--ease), transform 1.1s var(--ease), filter 1.1s var(--ease); transition-delay: var(--d, 0s); }
+  [data-reveal].in { opacity: 1; transform: none; filter: none; }
+  [data-reveal="fade"] { transform: none; }
+  [data-reveal="scale"] { transform: scale(.94); }
+
+  .split .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .08em; margin-bottom: -.08em; }
+  .split .w > span { display: inline-block; transform: translateY(105%) rotate(4deg); filter: blur(6px); transform-origin: left bottom; transition: transform 1.15s var(--ease), filter 1.15s var(--ease); transition-delay: calc(var(--i) * 55ms + var(--d, 0s)); }
+  .split.in .w > span { transform: none; filter: none; }
+
+  /* Hero intro (after loader) */
+  .hero-in { opacity: 0; transform: translateY(18px); filter: blur(6px); transition: opacity 1.2s var(--ease), transform 1.2s var(--ease), filter 1.2s var(--ease); transition-delay: var(--d, 0s); }
+  body.loaded .hero-in { opacity: 1; transform: none; filter: none; }
+  /* hero headline: line-by-line mask reveal */
+  .hero-lines .ln { display: block; overflow: hidden; padding-bottom: .07em; margin-bottom: -.07em; }
+  .hero-lines .ln > span { display: block; transform: translateY(112%); transition: transform 1.3s var(--ease); transition-delay: calc(.35s + var(--l) * .12s); }
+  body.loaded .hero-lines .ln > span { transform: none; }
+  /* hero image: soft focus-in */
+  .hero-media-wrap { opacity: 0; transform: scale(1.04); filter: blur(14px); transition: opacity 1.3s var(--ease), transform 1.8s var(--ease), filter 1.3s var(--ease); }
+  body.loaded .hero-media-wrap { opacity: 1; transform: none; filter: none; }
+  /* nav arrives last */
+  #nav > div { transition: opacity 1s var(--ease) 1s, transform 1s var(--ease) 1s; }
+  body:not(.loaded) #nav > div { opacity: 0; transform: translateY(-14px); }
+  /* odometer counters */
+  .odo { display: inline-flex; height: 1em; line-height: 1em; overflow: hidden; vertical-align: top; }
+  .odo-col { display: block; height: 1em; overflow: hidden; }
+  .odo-strip { display: flex; flex-direction: column; align-items: center; transition: transform 2.2s cubic-bezier(.16, 1, .3, 1); transition-delay: var(--dd, 0s); }
+  .odo-strip > span { display: block; height: 1em; line-height: 1em; }
+  .float-card { animation: bob 6s ease-in-out infinite; }
+  @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+  .stars { color: #E9A23B; letter-spacing: 1px; }
+
+  /* ---------- Marquee ---------- */
+  .marquee { mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+  .marquee-track { display: flex; width: max-content; animation: marquee 38s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+  .logo-item { display: inline-flex; align-items: center; gap: 9px; color: #9A9993; font-size: 17px; letter-spacing: -0.02em; padding: 0 34px; white-space: nowrap; transition: color .3s; }
+  .logo-item:hover { color: var(--ink); }
+
+  /* ---------- Services slider ---------- */
+  .svc-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.1s var(--ease); }
+  .svc-slide img { transform: scale(1.12); transition: transform 7s linear; }
+  .svc-slide.active { opacity: 1; z-index: 1; }
+  .svc-slide.active img { transform: scale(1.0); }
+  .svc-thumb { transition: transform .5s var(--ease), outline-color .3s, opacity .3s; outline: 2px solid transparent; outline-offset: 2px; }
+  .svc-thumb:hover { transform: translateY(-3px); }
+  .svc-thumb.active { outline-color: rgba(255,255,255,.95); }
+  .svc-text > * { transition: opacity .5s var(--ease), transform .7s var(--ease), filter .5s; }
+  .svc-text.out > * { opacity: 0; transform: translateY(10px); filter: blur(6px); }
+  .svc-progress i { display: block; height: 100%; width: 0; background: var(--ink); border-radius: 2px; }
+  .svc-progress i.run { width: 100%; transition: width 6s linear; }
+
+  /* ---------- How it works ---------- */
+  /* image swap washes out to white with blur, like the video */
+  .how-img { position: absolute; inset: 0; opacity: 0; transform: scale(1.06); filter: blur(16px) brightness(1.3) saturate(.6); transition: opacity 1s var(--ease), filter 1s var(--ease), transform 1.6s var(--ease); }
+  .how-img.active { opacity: 1; transform: scale(1); filter: none; }
+  .how-step-inner { will-change: opacity, filter; }
+  .chip { display: inline-flex; align-items: center; gap: 7px; height: 32px; padding: 0 13px; border-radius: 99px; border: 1px solid var(--line); background: rgba(255,255,255,.55); font-size: 12px; color: var(--ink-2); }
+  .how-dot { transition: background .4s, width .5s var(--ease); }
+  .how-dot.active { background: var(--ink); width: 22px; }
+
+  /* ---------- Treatments ---------- */
+  .tr-card { will-change: transform; transition: box-shadow .5s var(--ease); }
+  .tr-card .tr-img img { transition: transform 1.2s var(--ease); }
+  .tr-card:hover .tr-img img { transform: scale(1.06); }
+  .tr-card .tr-plus { transition: transform .5s var(--ease), background .3s; }
+  .tr-card:hover .tr-plus { transform: rotate(90deg); background: var(--peach); }
+  .tr-card:hover .tr-cap { transform: translateY(-6px); }
+  .tr-cap { transition: transform .6s var(--ease); }
+
+  /* ---------- Conditions ---------- */
+  .cond-row { position: relative; border-top: 1px solid var(--line); transition: padding .5s var(--ease); }
+  .cond-row::before { content: ""; position: absolute; inset: 0; background: #fff; transform: scaleY(0); transform-origin: bottom; transition: transform .55s var(--ease); z-index: -1; border-radius: 16px; }
+  .cond-row:hover::before { transform: scaleY(1); }
+  .cond-row:hover { padding-left: 18px; padding-right: 18px; }
+  .cond-row .cond-arrow { transition: transform .5s var(--ease), background .3s; }
+  .cond-row:hover .cond-arrow { transform: rotate(-45deg); background: var(--peach); }
+  #cursor-img { position: fixed; left: 0; top: 0; width: 240px; height: 300px; border-radius: 18px; pointer-events: none; z-index: 40; opacity: 0; transform: translate(-50%, -50%) scale(.85) rotate(-4deg); transition: opacity .35s var(--ease), transform .5s var(--ease); }
+  #cursor-img.show { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(-4deg); }
+
+  /* ---------- Reviews ---------- */
+  .review { transition: transform .6s var(--ease), box-shadow .6s var(--ease); }
+  .review:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -30px rgba(40,24,12,.35); }
+
+  .field { height: 48px; border-radius: 14px; background: rgba(255,255,255,.75); border: 1px solid var(--line); padding: 0 14px; font-size: 14px; width: 100%; outline: none; transition: border-color .3s, box-shadow .3s; }
+  .field:focus { border-color: var(--peach-deep); box-shadow: 0 0 0 4px rgba(242,163,133,.25); }
+
+  .footer-link { color: var(--ink-2); transition: color .3s; }
+  .footer-link:hover { color: var(--ink); }
+
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .001s !important; transition-duration: .001s !important; }
+  }
+</style>
+</head>
+
+<body>
+<!-- ===================== PRELOADER ===================== -->
+<div id="loader" aria-hidden="true">
+  <div class="flex flex-col items-center">
+    <div class="brand-mark flex items-center gap-2 text-[15px] font-medium tracking-[-0.02em]">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><path d="M12 6.5c-2.6 2.2-3.6 4.2-3.6 6a3.6 3.6 0 0 0 7.2 0c0-1.8-1-3.8-3.6-6Z" fill="#F2A385"/></svg>
+      Clearwell
+    </div>
+    <div class="bar"><i></i></div>
+  </div>
+</div>
+
+<!-- ===================== NAVBAR ===================== -->
+<header id="nav" class="fixed inset-x-0 top-0 z-[80]">
+  <div class="relative mx-auto max-w-site flex items-center justify-between px-4 md:px-8 h-[72px]">
+    <a href="#top" class="brand-pill flex items-center gap-2 rounded-full pl-3 pr-4 h-10 text-[14.5px] font-medium tracking-[-0.02em]" data-scroll>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><path d="M12 6.5c-2.6 2.2-3.6 4.2-3.6 6a3.6 3.6 0 0 0 7.2 0c0-1.8-1-3.8-3.6-6Z" fill="#F2A385"/></svg>
+      Clearwell
+    </a>
+
+    <nav class="nav-links hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-8 text-[13px]" aria-label="Primary">
+      <a href="#top" data-scroll class="active">Home</a>
+      <a href="#about" data-scroll>About</a>
+      <a href="#services" data-scroll>Services</a>
+      <a href="#how" data-scroll>How it Works</a>
+      <a href="#treatments" data-scroll>Treatments</a>
+      <a href="#conditions" data-scroll>Conditions</a>
+      <a href="#reviews" data-scroll>Reviews</a>
+    </nav>
+
+    <div class="nav-compact glass absolute left-1/2 top-1/2 -mt-5 hidden md:flex items-center gap-1 h-10 rounded-full pl-1.5 pr-1.5 text-[12.5px]">
+      <button class="icon-btn !w-7 !h-7 text-muted hover:text-ink" data-compact="prev" aria-label="Previous section"><i data-lucide="chevron-left" class="w-3.5 h-3.5"></i></button>
+      <span class="mono text-[11px] text-muted pl-1" id="compact-idx">01</span>
+      <span class="compact-label pl-1.5 overflow-hidden h-[18px] leading-[18px]" id="compact-label"><span>About</span></span>
+      <button class="icon-btn !w-7 !h-7 text-muted hover:text-ink" data-compact="next" aria-label="Next section"><i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></button>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <a href="#book" data-scroll class="nav-cta hidden sm:inline-flex items-center h-10 px-5 rounded-full text-[13px] font-medium">Book a Visit</a>
+      <button class="menu-btn icon-btn border border-transparent" id="menu-btn" aria-label="Open menu" aria-expanded="false">
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect class="l1" x="2" y="5" width="12" height="1.4" rx=".7" fill="currentColor"/><rect class="l2" x="2" y="9.6" width="12" height="1.4" rx=".7" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== MENU OVERLAY ===================== -->
+<div id="menu" aria-hidden="true">
+  <div class="mx-auto max-w-site h-full px-4 md:px-8 pt-28 pb-10 grid md:grid-cols-12 gap-10">
+    <nav class="md:col-span-8 flex flex-col justify-center gap-1">
+      <a class="m-link" href="#about" data-scroll><span style="transition-delay:.15s"><em class="mono not-italic text-xs muted">01</em><span class="m-text h2 text-[11vw] md:text-[5.6vw]">About</span></span></a>
+      <a class="m-link" href="#services" data-scroll><span style="transition-delay:.2s"><em class="mono not-italic text-xs muted">02</em><span class="m-text h2 text-[11vw] md:text-[5.6vw]">Services</span></span></a>
+      <a class="m-link" href="#how" data-scroll><span style="transition-delay:.25s"><em class="mono not-italic text-xs muted">03</em><span class="m-text h2 text-[11vw] md:text-[5.6vw]">How it Works</span></span></a>
+      <a class="m-link" href="#treatments" data-scroll><span style="transition-delay:.3s"><em class="mono not-italic text-xs muted">04</em><span class="m-text h2 text-[11vw] md:text-[5.6vw]">Treatments</span></span></a>
+      <a class="m-link" href="#conditions" data-scroll><span style="transition-delay:.35s"><em class="mono not-italic text-xs muted">05</em><span class="m-text h2 text-[11vw] md:text-[5.6vw]">Conditions</span></span></a>
+      <a class="m-link" href="#reviews" data-scroll><span style="transition-delay:.4s"><em class="mono not-italic text-xs muted">06</em><span class="m-text h2 text-[11vw] md:text-[5.6vw]">Reviews</span></span></a>
+    </nav>
+    <div class="md:col-span-4 flex flex-col justify-end gap-8 text-sm">
+      <div>
+        <p class="eyebrow mb-3">Visit</p>
+        <p>214 Linden Avenue, Suite 3<br/>Portland, OR 97205</p>
+      </div>
+      <div>
+        <p class="eyebrow mb-3">Contact</p>
+        <p>(503) 555-0142<br/>hello@clearwell.clinic</p>
+      </div>
+      <a href="#book" data-scroll class="btn-peach self-start"><span class="label"><span>Book a visit</span><span>Book a visit</span></span><span class="arrow"><i data-lucide="arrow-right" class="w-4 h-4"></i></span></a>
+    </div>
+  </div>
+</div>
+
+<main id="top">
+  <!-- ===================== HERO ===================== -->
+  <section class="relative" data-section="Home">
+    <div class="mx-auto max-w-site px-4 md:px-8 pt-[88px] pb-6 min-h-[100svh] grid lg:grid-cols-12 gap-6 lg:gap-8">
+      <!-- Left copy -->
+      <div id="hero-copy" class="lg:col-span-5 flex flex-col justify-end order-2 lg:order-1 pb-2 lg:pb-10 will-change-transform">
+        <span class="eyebrow hero-in" style="--d:.25s">Dermatology Clinic · Portland</span>
+        <h1 class="display hero-lines text-[48px] sm:text-[64px] lg:text-[clamp(56px,5.6vw,92px)] mt-5"><span class="ln"><span style="--l:0">Clear Answers</span></span><span class="ln"><span style="--l:1">for Every Kind</span></span><span class="ln"><span style="--l:2">of Skin</span></span></h1>
+        <div class="mt-7 flex flex-col sm:flex-row sm:items-end gap-6 sm:gap-10 hero-in" style="--d:.75s">
+          <p class="max-w-[300px] text-[14px] leading-[1.55] muted">Board-certified dermatologists for acne, eczema, skin checks and cosmetic care — with a plan you can actually follow.</p>
+          <a href="#book" data-scroll class="btn-peach shrink-0 self-start sm:self-auto"><span class="label"><span>Book a visit</span><span>Book a visit</span></span><span class="arrow"><i data-lucide="arrow-right" class="w-4 h-4"></i></span></a>
+        </div>
+        <div class="mt-10 pt-5 border-t border-black/[.07] flex flex-wrap gap-x-7 gap-y-3 text-[12px] text-[#6d6c67] hero-in" style="--d:.9s">
+          <span class="inline-flex items-center gap-2"><i data-lucide="star" class="w-3.5 h-3.5 fill-[#E9A23B] text-[#E9A23B]"></i>4.9 on 1,200+ reviews</span>
+          <span class="inline-flex items-center gap-2"><i data-lucide="badge-check" class="w-3.5 h-3.5"></i>Board-certified</span>
+          <span class="inline-flex items-center gap-2"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i>Most insurance accepted</span>
+        </div>
+      </div>
+
+      <!-- Right media -->
+      <div id="hero-media" class="lg:col-span-7 order-1 lg:order-2 relative h-[58svh] lg:h-auto lg:min-h-[calc(100svh-112px)]">
+        <div class="hero-media-wrap media absolute inset-0 rounded-[28px]">
+          <img id="hero-img" class="will-change-transform scale-[1.12]" src="assets/hero.jpg" alt="Dermatologist examining a young patient's skin" />
+        </div>
+
+        <!-- Floating glass card -->
+        <div class="float-card absolute right-3 bottom-3 md:right-5 md:bottom-5 w-[220px] md:w-[262px] hero-in" style="--d:.6s">
+          <div class="glass rounded-[22px] p-2">
+            <div class="media rounded-[16px] h-[118px] md:h-[150px]">
+              <img src="assets/serum.jpg" alt="Serum texture swatch" />
+            </div>
+            <div class="flex items-center gap-2.5 px-1.5 pt-2.5">
+              <div class="flex -space-x-2">
+                <img class="w-6 h-6 rounded-full ring-2 ring-white object-cover bg-[#e9e1d9]" src="assets/avatar-1.jpg" alt="" />
+                <img class="w-6 h-6 rounded-full ring-2 ring-white object-cover bg-[#e9e1d9]" src="assets/avatar-2.jpg" alt="" />
+                <img class="w-6 h-6 rounded-full ring-2 ring-white object-cover bg-[#e9e1d9]" src="assets/avatar-3.jpg" alt="" />
+                <img class="w-6 h-6 rounded-full ring-2 ring-white object-cover bg-[#e9e1d9]" src="assets/avatar-4.jpg" alt="" />
+              </div>
+              <div class="leading-tight">
+                <div class="stars text-[10px]">★★★★★</div>
+                <div class="text-[10.5px] muted">Trusted by 12K patients</div>
+              </div>
+            </div>
+            <a href="#book" data-scroll class="mt-2.5 flex items-center justify-center gap-2 h-9 rounded-[12px] bg-[#F2A385] hover:bg-[#EC8F6C] transition-colors text-[12px] font-medium text-[#2E140A]">
+              <i data-lucide="calendar-check" class="w-3.5 h-3.5"></i> Same-week appointments
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hidden lg:flex mx-auto max-w-site px-8 -mt-2 pb-6 justify-end">
+      <span class="mono text-[10px] tracking-[.2em] uppercase muted inline-flex items-center gap-2 hero-in" style="--d:1.2s">Scroll to explore <i data-lucide="arrow-down" class="w-3 h-3 animate-bounce"></i></span>
+    </div>
+  </section>
+
+  <!-- ===================== LOGO MARQUEE ===================== -->
+  <section class="py-12 md:py-16">
+    <p class="text-center text-[12px] muted mb-8" data-reveal>In-network with the plans most of our patients already have</p>
+    <div class="marquee overflow-hidden" data-reveal="fade" style="--d:.15s">
+      <div class="marquee-track">
+        <!-- set A -->
+        <span class="logo-item"><i data-lucide="mountain" class="w-5 h-5"></i>Bluepeak</span>
+        <span class="logo-item"><i data-lucide="compass" class="w-5 h-5"></i>Northside</span>
+        <span class="logo-item mono text-[14px] tracking-[.12em]"><i data-lucide="shield" class="w-5 h-5"></i>ASPEN MUTUAL</span>
+        <span class="logo-item italic font-light"><i data-lucide="leaf" class="w-5 h-5"></i>EvergreenPlan</span>
+        <span class="logo-item"><i data-lucide="star" class="w-5 h-5"></i>Northstar Health</span>
+        <span class="logo-item mono text-[14px] tracking-[.12em]"><i data-lucide="hexagon" class="w-5 h-5"></i>MERIDIAN CARE</span>
+        <span class="logo-item font-semibold"><i data-lucide="waves" class="w-5 h-5"></i>Tidewell</span>
+        <!-- set B (duplicate for loop) -->
+        <span class="logo-item" aria-hidden="true"><i data-lucide="mountain" class="w-5 h-5"></i>Bluepeak</span>
+        <span class="logo-item" aria-hidden="true"><i data-lucide="compass" class="w-5 h-5"></i>Northside</span>
+        <span class="logo-item mono text-[14px] tracking-[.12em]" aria-hidden="true"><i data-lucide="shield" class="w-5 h-5"></i>ASPEN MUTUAL</span>
+        <span class="logo-item italic font-light" aria-hidden="true"><i data-lucide="leaf" class="w-5 h-5"></i>EvergreenPlan</span>
+        <span class="logo-item" aria-hidden="true"><i data-lucide="star" class="w-5 h-5"></i>Northstar Health</span>
+        <span class="logo-item mono text-[14px] tracking-[.12em]" aria-hidden="true"><i data-lucide="hexagon" class="w-5 h-5"></i>MERIDIAN CARE</span>
+        <span class="logo-item font-semibold" aria-hidden="true"><i data-lucide="waves" class="w-5 h-5"></i>Tidewell</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section id="about" class="relative" data-section="About">
+    <div class="mx-auto max-w-site px-4 md:px-8 grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+      <div class="lg:col-span-5 flex flex-col justify-center py-10 lg:py-0">
+        <span class="eyebrow" data-reveal>01 — About us</span>
+        <h2 class="h2 split text-[44px] sm:text-[56px] lg:text-[clamp(48px,4.6vw,76px)] mt-5" data-split>Caring for Skin at Every Age</h2>
+        <p class="mt-6 max-w-[430px] text-[14.5px] leading-[1.65] muted" data-reveal style="--d:.15s">From a teenager's first breakout to a yearly mole check at seventy, Clearwell is one practice for the whole family. Our dermatologists take the time to explain what's happening with your skin, why, and what will actually help — no upsells, no guesswork.</p>
+        <div class="mt-12 grid grid-cols-3 gap-6 max-w-[460px]">
+          <div data-reveal style="--d:.2s">
+            <div class="h2 text-[40px] lg:text-[46px]"><span data-odo="98">98</span>%</div>
+            <p class="text-[11.5px] muted mt-1.5 leading-snug">Patients who'd<br/>recommend us</p>
+          </div>
+          <div data-reveal style="--d:.3s">
+            <div class="h2 text-[40px] lg:text-[46px]"><span data-odo="15">15</span>+</div>
+            <p class="text-[11.5px] muted mt-1.5 leading-snug">Years in<br/>practice</p>
+          </div>
+          <div data-reveal style="--d:.4s">
+            <div class="h2 text-[40px] lg:text-[46px]"><span data-odo="12">12</span>K</div>
+            <p class="text-[11.5px] muted mt-1.5 leading-snug">Patients<br/>treated</p>
+          </div>
+        </div>
+      </div>
+      <div class="lg:col-span-7 pb-10">
+        <div id="about-media" class="media rounded-[28px] h-[70svh] lg:h-[96svh] will-change-[clip-path]" style="clip-path: inset(10% 8% 0 8% round 28px)">
+          <img id="about-img" class="scale-[1.15] will-change-transform" src="assets/about.jpg" alt="Smiling woman applying moisturiser to her cheek" />
+          <div class="absolute left-5 bottom-5 glass rounded-2xl px-4 py-3 flex items-center gap-3 text-[12px]" data-reveal style="--d:.2s">
+            <span class="w-8 h-8 rounded-full bg-[#F2A385] grid place-items-center"><i data-lucide="heart-pulse" class="w-4 h-4 text-[#2E140A]"></i></span>
+            <span class="leading-tight"><b class="font-medium">Ages 6 to 96</b><br/><span class="muted">Pediatric to senior care</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SERVICES ===================== -->
+  <section id="services" class="relative pt-20 md:pt-28" data-section="Services">
+    <div class="mx-auto max-w-site px-4 md:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+        <div>
+          <span class="eyebrow" data-reveal>02 — Services</span>
+          <h2 class="h2 split text-[40px] md:text-[56px] mt-4" data-split>What we take care of</h2>
+        </div>
+        <p class="text-[13px] muted max-w-[300px] md:text-right leading-relaxed" data-reveal style="--d:.15s">Three specialties under one roof, so your care never has to be split across clinics.</p>
+      </div>
+
+      <div id="svc" class="relative h-[78svh] min-h-[520px] rounded-[28px] overflow-hidden bg-[#e8e3dc] will-change-[clip-path]">
+        <div class="svc-slide media active" data-title="Medical Dermatology" data-desc="Acne, eczema, psoriasis, rosacea, hair and nail conditions — properly diagnosed and treated with evidence-based plans.">
+          <img src="assets/svc-medical.jpg" alt="Patient receiving a facial skin treatment from a gloved clinician" />
+        </div>
+        <div class="svc-slide media" data-title="Cosmetic Dermatology" data-desc="Peels, microneedling, lasers and injectables planned by physicians, for results that look like you on a good day.">
+          <img src="assets/svc-cosmetic.jpg" alt="Clinician applying a cosmetic treatment" />
+        </div>
+        <div class="svc-slide media" data-title="Skin Cancer Screening" data-desc="Full-body skin checks with digital mole mapping, so changes are caught early and tracked over time.">
+          <img src="assets/svc-screening.jpg" alt="Dermatologist checking a freckle with a dermatoscope" />
+        </div>
+        <div class="absolute inset-0 z-[2] pointer-events-none bg-gradient-to-t from-black/25 via-transparent to-transparent"></div>
+
+        <!-- Thumbs -->
+        <div class="absolute left-4 bottom-4 md:left-6 md:bottom-6 z-[3] hidden sm:flex gap-3" id="svc-thumbs">
+          <button class="svc-thumb media w-[86px] h-[86px] md:w-[104px] md:h-[104px] rounded-[16px] active" data-go="0" aria-label="Medical Dermatology"><img src="assets/svc-medical.jpg" alt="" /></button>
+          <button class="svc-thumb media w-[86px] h-[86px] md:w-[104px] md:h-[104px] rounded-[16px]" data-go="1" aria-label="Cosmetic Dermatology"><img src="assets/svc-cosmetic.jpg" alt="" /></button>
+          <button class="svc-thumb media w-[86px] h-[86px] md:w-[104px] md:h-[104px] rounded-[16px]" data-go="2" aria-label="Skin Cancer Screening"><img src="assets/svc-screening.jpg" alt="" /></button>
+        </div>
+
+        <!-- Info card -->
+        <div class="absolute right-3 bottom-3 left-3 sm:left-auto md:right-6 md:bottom-6 z-[3] sm:w-[380px] glass !bg-white/80 rounded-[22px] p-5 md:p-6" data-reveal style="--d:.25s">
+          <div class="svc-text">
+            <h3 class="h2 text-[28px] md:text-[34px]" id="svc-title">Medical Dermatology</h3>
+            <p class="text-[12.5px] muted mt-2.5 leading-relaxed" id="svc-desc">Acne, eczema, psoriasis, rosacea, hair and nail conditions — properly diagnosed and treated with evidence-based plans.</p>
+          </div>
+          <div class="mt-5 flex items-center gap-4">
+            <span class="mono text-[11px] muted"><span id="svc-idx">1</span>/3</span>
+            <span class="svc-progress flex-1 h-[2px] bg-black/10 rounded overflow-hidden"><i id="svc-bar"></i></span>
+            <button class="icon-btn !w-9 !h-9 border border-black/10 hover:bg-white" id="svc-prev" aria-label="Previous service"><i data-lucide="arrow-left" class="w-4 h-4"></i></button>
+            <button class="icon-btn !w-9 !h-9 bg-[#F2A385] hover:bg-[#EC8F6C] text-[#2E140A]" id="svc-next" aria-label="Next service"><i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HOW IT WORKS (sticky image, scrolling steps) ===================== -->
+  <section id="how" class="relative mt-20 md:mt-28" data-section="How it Works">
+    <div class="mx-auto max-w-site px-4 md:px-8 grid md:grid-cols-12 gap-6 md:gap-10">
+      <div class="hidden md:block md:col-span-5">
+        <div class="sticky top-[84px] h-[calc(100svh-108px)] rounded-[28px] overflow-hidden bg-[#e8e3dc]">
+          <div class="how-img media active"><img src="assets/how-1.jpg" alt="Patient and dermatologist talking in a bright clinic room" /></div>
+          <div class="how-img media"><img src="assets/how-2.jpg" alt="Close skin examination with pink gloves" /></div>
+          <div class="how-img media"><img src="assets/how-3.jpg" alt="Dermatologist explaining a treatment plan" /></div>
+          <div class="how-img media"><img src="assets/how-4.jpg" alt="Patient on a video follow-up with her dermatologist" /></div>
+          <div class="absolute left-4 right-4 bottom-4 z-[2] glass rounded-[16px] px-4 py-3 flex items-center gap-4">
+            <span class="mono text-[11px]"><span id="how-idx">01</span><span class="muted"> / 04</span></span>
+            <span class="flex-1 h-[2px] rounded bg-black/10 overflow-hidden"><i id="how-bar" class="block h-full bg-[#1A1A18] w-0"></i></span>
+            <span class="flex gap-1.5" id="how-dots">
+              <i class="how-dot active block h-1.5 w-1.5 rounded-full bg-black/20"></i>
+              <i class="how-dot block h-1.5 w-1.5 rounded-full bg-black/20"></i>
+              <i class="how-dot block h-1.5 w-1.5 rounded-full bg-black/20"></i>
+              <i class="how-dot block h-1.5 w-1.5 rounded-full bg-black/20"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="md:col-span-7 md:pl-6">
+        <div class="md:pt-[6svh] md:min-h-[38svh]">
+          <span class="eyebrow" data-reveal>03 — How we work</span>
+          <h2 class="h2 split text-[36px] sm:text-[48px] lg:text-[clamp(52px,5vw,84px)] mt-4 max-w-[640px]" data-split>From first visit to lasting care</h2>
+        </div>
+          <div class="how-step md:min-h-[92svh] flex items-center py-10 md:py-0" data-step="0">
+            <div class="how-step-inner w-full">
+              <div class="media md:hidden rounded-[22px] h-[46svh] mb-6"><img src="assets/how-1.jpg" alt="" /></div>
+              <span class="mono text-[11px] muted">01</span>
+              <h3 class="h2 text-[30px] md:text-[44px] mt-2">Book online</h3>
+              <p class="text-[13.5px] muted mt-3 max-w-[460px] leading-relaxed">Choose a time that suits you in under a minute. Most new patients are seen within the same week — no referral needed.</p>
+              <div class="flex flex-wrap gap-2 mt-5"><span class="chip"><i data-lucide="clock-3" class="w-3.5 h-3.5"></i>60-second booking</span><span class="chip"><i data-lucide="calendar" class="w-3.5 h-3.5"></i>Same-week slots</span><span class="chip"><i data-lucide="file-check" class="w-3.5 h-3.5"></i>No referral</span></div>
+            </div>
+          </div>
+          <div class="how-step md:min-h-[92svh] flex items-center py-10 md:py-0" data-step="1">
+            <div class="how-step-inner w-full">
+              <div class="media md:hidden rounded-[22px] h-[46svh] mb-6"><img src="assets/how-2.jpg" alt="" /></div>
+              <span class="mono text-[11px] muted">02</span>
+              <h3 class="h2 text-[30px] md:text-[44px] mt-2">Your skin check</h3>
+              <p class="text-[13.5px] muted mt-3 max-w-[460px] leading-relaxed">A 30-minute visit with a board-certified dermatologist, with dermoscopy and photos where they help us see more clearly.</p>
+              <div class="flex flex-wrap gap-2 mt-5"><span class="chip"><i data-lucide="scan-face" class="w-3.5 h-3.5"></i>Dermoscopy</span><span class="chip"><i data-lucide="camera" class="w-3.5 h-3.5"></i>Clinical photos</span><span class="chip"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i>Time for questions</span></div>
+            </div>
+          </div>
+          <div class="how-step md:min-h-[92svh] flex items-center py-10 md:py-0" data-step="2">
+            <div class="how-step-inner w-full">
+              <div class="media md:hidden rounded-[22px] h-[46svh] mb-6"><img src="assets/how-3.jpg" alt="" /></div>
+              <span class="mono text-[11px] muted">03</span>
+              <h3 class="h2 text-[30px] md:text-[44px] mt-2">A plan, then treatment</h3>
+              <p class="text-[13.5px] muted mt-3 max-w-[460px] leading-relaxed">You leave with a written plan: what we found, what we'll do, what it costs and when you'll see results. Treatments start the same day where possible.</p>
+              <div class="flex flex-wrap gap-2 mt-5"><span class="chip"><i data-lucide="clipboard-list" class="w-3.5 h-3.5"></i>Written plan</span><span class="chip"><i data-lucide="receipt" class="w-3.5 h-3.5"></i>Clear pricing</span><span class="chip"><i data-lucide="sparkles" class="w-3.5 h-3.5"></i>Same-day options</span></div>
+            </div>
+          </div>
+          <div class="how-step md:min-h-[62svh] flex items-center py-10 md:py-0" data-step="3">
+            <div class="how-step-inner w-full">
+              <div class="media md:hidden rounded-[22px] h-[46svh] mb-6"><img src="assets/how-4.jpg" alt="" /></div>
+              <span class="mono text-[11px] muted">04</span>
+              <h3 class="h2 text-[30px] md:text-[44px] mt-2">Follow-up that keeps going</h3>
+              <p class="text-[13.5px] muted mt-3 max-w-[460px] leading-relaxed">Check-ins by message between visits, progress photos in your patient app, and adjustments whenever your skin needs them.</p>
+              <div class="flex flex-wrap gap-2 mt-5"><span class="chip"><i data-lucide="messages-square" class="w-3.5 h-3.5"></i>Message your doctor</span><span class="chip"><i data-lucide="line-chart" class="w-3.5 h-3.5"></i>Progress tracking</span><span class="chip"><i data-lucide="repeat" class="w-3.5 h-3.5"></i>Plan adjustments</span></div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TREATMENTS (horizontal pinned) ===================== -->
+  <section id="treatments" class="relative h-[380vh]" data-section="Treatments">
+    <div class="sticky top-0 h-[100svh] overflow-hidden flex items-center">
+      <div id="tr-track" class="flex items-center gap-5 md:gap-6 pl-4 md:pl-8 pr-[10vw] will-change-transform">
+        <!-- Intro -->
+        <div class="shrink-0 w-[78vw] sm:w-[340px] md:w-[400px] pr-4 md:pr-14">
+          <span class="eyebrow">04 — Treatments</span>
+          <h2 class="h2 text-[42px] md:text-[60px] mt-4">Planned by<br/>dermatologists</h2>
+          <p class="text-[13.5px] muted mt-5 leading-relaxed max-w-[320px]">Every in-clinic treatment is chosen, dosed and supervised by a physician — never sold off a menu.</p>
+          <a href="#book" data-scroll class="btn-peach mt-7"><span class="label"><span>See all treatments</span><span>See all treatments</span></span><span class="arrow"><i data-lucide="arrow-right" class="w-4 h-4"></i></span></a>
+        </div>
+
+        <!-- Cards -->
+        <article class="tr-card shrink-0 w-[68vw] sm:w-[260px] md:w-[290px]">
+          <div class="relative bg-white rounded-[22px] p-1.5 card-white">
+            <div class="tr-img media rounded-[17px] h-[340px] md:h-[380px]"><img src="assets/tr-peel.jpg" alt="Chemical peel being brushed onto a patient's face" /></div>
+            <span class="absolute top-4 left-4 glass rounded-full px-2.5 h-7 grid place-items-center mono text-[10.5px]">01</span>
+            <span class="tr-plus absolute top-4 right-4 glass rounded-full w-8 h-8 grid place-items-center"><i data-lucide="plus" class="w-4 h-4"></i></span>
+            <div class="tr-cap absolute left-3 right-3 -bottom-10 bg-white rounded-[16px] p-4 card-white">
+              <span class="mono text-[9.5px] tracking-[.14em] uppercase muted">Resurfacing · 45 min</span>
+              <h3 class="text-[19px] tracking-[-0.03em] mt-1">Chemical Peel</h3>
+              <p class="text-[11.5px] muted mt-1.5 leading-snug">Medical-grade acids to fade marks and refine texture.</p>
+            </div>
+          </div>
+        </article>
+        <article class="tr-card shrink-0 w-[68vw] sm:w-[260px] md:w-[290px]">
+          <div class="relative bg-white rounded-[22px] p-1.5 card-white">
+            <div class="tr-img media rounded-[17px] h-[340px] md:h-[380px]"><img src="assets/tr-microneedling.jpg" alt="Microneedling treatment" /></div>
+            <span class="absolute top-4 left-4 glass rounded-full px-2.5 h-7 grid place-items-center mono text-[10.5px]">02</span>
+            <span class="tr-plus absolute top-4 right-4 glass rounded-full w-8 h-8 grid place-items-center"><i data-lucide="plus" class="w-4 h-4"></i></span>
+            <div class="tr-cap absolute left-3 right-3 -bottom-10 bg-white rounded-[16px] p-4 card-white">
+              <span class="mono text-[9.5px] tracking-[.14em] uppercase muted">Collagen · 60 min</span>
+              <h3 class="text-[19px] tracking-[-0.03em] mt-1">Microneedling</h3>
+              <p class="text-[11.5px] muted mt-1.5 leading-snug">Stimulates collagen to soften scars and fine lines.</p>
+            </div>
+          </div>
+        </article>
+        <article class="tr-card shrink-0 w-[68vw] sm:w-[260px] md:w-[290px]">
+          <div class="relative bg-white rounded-[22px] p-1.5 card-white">
+            <div class="tr-img media rounded-[17px] h-[340px] md:h-[380px]"><img src="assets/tr-laser.jpg" alt="Laser resurfacing session in a treatment room" /></div>
+            <span class="absolute top-4 left-4 glass rounded-full px-2.5 h-7 grid place-items-center mono text-[10.5px]">03</span>
+            <span class="tr-plus absolute top-4 right-4 glass rounded-full w-8 h-8 grid place-items-center"><i data-lucide="plus" class="w-4 h-4"></i></span>
+            <div class="tr-cap absolute left-3 right-3 -bottom-10 bg-white rounded-[16px] p-4 card-white">
+              <span class="mono text-[9.5px] tracking-[.14em] uppercase muted">Laser · 30 min</span>
+              <h3 class="text-[19px] tracking-[-0.03em] mt-1">Laser Resurfacing</h3>
+              <p class="text-[11.5px] muted mt-1.5 leading-snug">Targets pigment, redness and sun damage with precision.</p>
+            </div>
+          </div>
+        </article>
+        <article class="tr-card shrink-0 w-[68vw] sm:w-[260px] md:w-[290px]">
+          <div class="relative bg-white rounded-[22px] p-1.5 card-white">
+            <div class="tr-img media rounded-[17px] h-[340px] md:h-[380px]"><img src="assets/tr-led.jpg" alt="LED light therapy device used on a patient" /></div>
+            <span class="absolute top-4 left-4 glass rounded-full px-2.5 h-7 grid place-items-center mono text-[10.5px]">04</span>
+            <span class="tr-plus absolute top-4 right-4 glass rounded-full w-8 h-8 grid place-items-center"><i data-lucide="plus" class="w-4 h-4"></i></span>
+            <div class="tr-cap absolute left-3 right-3 -bottom-10 bg-white rounded-[16px] p-4 card-white">
+              <span class="mono text-[9.5px] tracking-[.14em] uppercase muted">Light · 20 min</span>
+              <h3 class="text-[19px] tracking-[-0.03em] mt-1">LED Light Therapy</h3>
+              <p class="text-[11.5px] muted mt-1.5 leading-snug">Calms inflammation and speeds healing, no downtime.</p>
+            </div>
+          </div>
+        </article>
+        <article class="tr-card shrink-0 w-[68vw] sm:w-[260px] md:w-[290px]">
+          <div class="relative bg-white rounded-[22px] p-1.5 card-white">
+            <div class="tr-img media rounded-[17px] h-[340px] md:h-[380px]"><img src="assets/tr-mole.jpg" alt="Phone photographing a mole for mapping" /></div>
+            <span class="absolute top-4 left-4 glass rounded-full px-2.5 h-7 grid place-items-center mono text-[10.5px]">05</span>
+            <span class="tr-plus absolute top-4 right-4 glass rounded-full w-8 h-8 grid place-items-center"><i data-lucide="plus" class="w-4 h-4"></i></span>
+            <div class="tr-cap absolute left-3 right-3 -bottom-10 bg-white rounded-[16px] p-4 card-white">
+              <span class="mono text-[9.5px] tracking-[.14em] uppercase muted">Screening · 40 min</span>
+              <h3 class="text-[19px] tracking-[-0.03em] mt-1">Mole Mapping</h3>
+              <p class="text-[11.5px] muted mt-1.5 leading-snug">Full-body imaging so any change is caught early.</p>
+            </div>
+          </div>
+        </article>
+        <article class="tr-card shrink-0 w-[68vw] sm:w-[260px] md:w-[290px]">
+          <a href="#book" data-scroll class="relative flex flex-col justify-between h-[392px] md:h-[432px] rounded-[22px] p-6 bg-[#F2A385] text-[#2E140A] overflow-hidden group">
+            <span class="mono text-[10.5px] tracking-[.14em] uppercase">Not sure yet?</span>
+            <div>
+              <h3 class="h2 text-[34px]">Start with a skin consult</h3>
+              <p class="text-[12.5px] mt-3 opacity-80 leading-snug">We'll recommend the right treatment — or tell you if you don't need one.</p>
+              <span class="mt-6 w-11 h-11 rounded-full bg-white/50 grid place-items-center transition-transform duration-500 group-hover:-rotate-45"><i data-lucide="arrow-right" class="w-5 h-5"></i></span>
+            </div>
+            <svg class="absolute -right-16 -top-16 w-56 h-56 opacity-30" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="98" fill="none" stroke="#fff" stroke-width="1"/><circle cx="100" cy="100" r="70" fill="none" stroke="#fff" stroke-width="1"/><circle cx="100" cy="100" r="42" fill="none" stroke="#fff" stroke-width="1"/></svg>
+          </a>
+        </article>
+      </div>
+      <div class="absolute bottom-6 left-1/2 -translate-x-1/2 w-[160px] h-[2px] rounded bg-black/10 overflow-hidden"><i id="tr-bar" class="block h-full w-0 bg-[#1A1A18]"></i></div>
+    </div>
+  </section>
+
+  <!-- ===================== TECHNOLOGY ===================== -->
+  <section id="tools" class="relative pt-10 md:pt-16" data-section="Technology">
+    <div class="mx-auto max-w-site px-4 md:px-8">
+      <div class="grid md:grid-cols-12 gap-6 items-end mb-10">
+        <div class="md:col-span-7">
+          <span class="eyebrow" data-reveal>05 — Technology</span>
+          <h2 class="h2 split text-[44px] md:text-[clamp(56px,5.4vw,88px)] mt-4" data-split>Precise Tools, Gentle Hands</h2>
+        </div>
+        <div class="md:col-span-4 md:col-start-9 flex flex-col items-start gap-5" data-reveal style="--d:.15s">
+          <p class="text-[13.5px] muted leading-relaxed">Medical-grade lasers, dermoscopy and digital imaging — always in the hands of a physician who knows when not to use them.</p>
+          <a href="#book" data-scroll class="btn-peach"><span class="label"><span>Meet the team</span><span>Meet the team</span></span><span class="arrow"><i data-lucide="arrow-right" class="w-4 h-4"></i></span></a>
+        </div>
+      </div>
+      <div class="grid md:grid-cols-12 gap-5">
+        <figure class="tool md:col-span-7 relative media rounded-[28px] h-[56svh] min-h-[380px]" data-reveal="scale">
+          <img src="assets/tr-laser.jpg" alt="Laser handpiece in a bright treatment room" class="tool-img" />
+          <figcaption class="absolute left-4 bottom-4 glass rounded-[16px] px-4 py-3 text-[12px] leading-tight"><b class="font-medium text-[14px] tracking-[-0.02em]">Fractional &amp; vascular lasers</b><br/><span class="muted">FDA-cleared, calibrated weekly</span></figcaption>
+        </figure>
+        <div class="md:col-span-5 grid grid-rows-2 gap-5">
+          <figure class="tool relative media rounded-[28px] min-h-[220px]" data-reveal="scale" style="--d:.1s">
+            <img src="assets/tr-mole.jpg" alt="Phone dermatoscope photographing a mole" class="tool-img object-[50%_35%]" />
+            <figcaption class="absolute left-4 bottom-4 glass rounded-[16px] px-4 py-3 text-[12px] leading-tight"><b class="font-medium text-[14px] tracking-[-0.02em]">Digital dermoscopy</b><br/><span class="muted">Every mole tracked over time</span></figcaption>
+          </figure>
+          <div class="rounded-[28px] card-white p-6 flex flex-col justify-between" data-reveal="scale" style="--d:.2s">
+            <span class="mono text-[10.5px] tracking-[.14em] uppercase muted">Safety first</span>
+            <div class="grid grid-cols-2 gap-4 mt-6">
+              <div><div class="h2 text-[40px]"><span data-odo="0">0</span></div><p class="text-[11.5px] muted mt-1">Serious adverse events in 2025</p></div>
+              <div><div class="h2 text-[40px]"><span data-odo="100">100</span>%</div><p class="text-[11.5px] muted mt-1">Treatments led by physicians</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONDITIONS ===================== -->
+  <section id="conditions" class="relative py-24 md:py-32 mt-10" data-section="Conditions">
+    <div class="mx-auto max-w-site px-4 md:px-8 grid lg:grid-cols-12 gap-10">
+      <div class="lg:col-span-4">
+        <span class="eyebrow" data-reveal>06 — Conditions</span>
+        <h2 class="h2 split text-[40px] md:text-[56px] mt-4" data-split>What brings people in</h2>
+        <p class="text-[13.5px] muted mt-5 max-w-[340px] leading-relaxed" data-reveal style="--d:.15s">If it's on your skin, hair or nails, we see it. These are the conditions we treat most often.</p>
+      </div>
+      <div class="lg:col-span-8" id="cond-list">
+        <a href="#book" data-scroll class="cond-row isolate flex items-center gap-5 md:gap-8 py-6" data-img="assets/how-2.jpg" data-reveal>
+          <span class="mono text-[11px] muted w-6">01</span>
+          <span class="h2 text-[26px] md:text-[38px] flex-1">Acne &amp; acne scarring</span>
+          <span class="hidden md:block text-[12px] muted w-[220px]">Teen, adult and hormonal acne</span>
+          <span class="cond-arrow w-10 h-10 rounded-full border border-black/10 grid place-items-center"><i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+        </a>
+        <a href="#book" data-scroll class="cond-row isolate flex items-center gap-5 md:gap-8 py-6" data-img="assets/about.jpg" data-reveal>
+          <span class="mono text-[11px] muted w-6">02</span>
+          <span class="h2 text-[26px] md:text-[38px] flex-1">Eczema &amp; dermatitis</span>
+          <span class="hidden md:block text-[12px] muted w-[220px]">Flare control and long-term care</span>
+          <span class="cond-arrow w-10 h-10 rounded-full border border-black/10 grid place-items-center"><i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+        </a>
+        <a href="#book" data-scroll class="cond-row isolate flex items-center gap-5 md:gap-8 py-6" data-img="assets/svc-cosmetic.jpg" data-reveal>
+          <span class="mono text-[11px] muted w-6">03</span>
+          <span class="h2 text-[26px] md:text-[38px] flex-1">Rosacea &amp; redness</span>
+          <span class="hidden md:block text-[12px] muted w-[220px]">Triggers, topicals and laser</span>
+          <span class="cond-arrow w-10 h-10 rounded-full border border-black/10 grid place-items-center"><i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+        </a>
+        <a href="#book" data-scroll class="cond-row isolate flex items-center gap-5 md:gap-8 py-6" data-img="assets/how-3.jpg" data-reveal>
+          <span class="mono text-[11px] muted w-6">04</span>
+          <span class="h2 text-[26px] md:text-[38px] flex-1">Psoriasis</span>
+          <span class="hidden md:block text-[12px] muted w-[220px]">Including biologic therapies</span>
+          <span class="cond-arrow w-10 h-10 rounded-full border border-black/10 grid place-items-center"><i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+        </a>
+        <a href="#book" data-scroll class="cond-row isolate flex items-center gap-5 md:gap-8 py-6" data-img="assets/tr-mole.jpg" data-reveal>
+          <span class="mono text-[11px] muted w-6">05</span>
+          <span class="h2 text-[26px] md:text-[38px] flex-1">Moles &amp; skin cancer</span>
+          <span class="hidden md:block text-[12px] muted w-[220px]">Screening, biopsy and removal</span>
+          <span class="cond-arrow w-10 h-10 rounded-full border border-black/10 grid place-items-center"><i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+        </a>
+        <a href="#book" data-scroll class="cond-row isolate flex items-center gap-5 md:gap-8 py-6 border-b border-black/[.08]" data-img="assets/tr-peel.jpg" data-reveal>
+          <span class="mono text-[11px] muted w-6">06</span>
+          <span class="h2 text-[26px] md:text-[38px] flex-1">Pigmentation &amp; melasma</span>
+          <span class="hidden md:block text-[12px] muted w-[220px]">Peels, lasers and prescriptions</span>
+          <span class="cond-arrow w-10 h-10 rounded-full border border-black/10 grid place-items-center"><i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+        </a>
+      </div>
+    </div>
+    <div id="cursor-img" class="media hidden md:block"><img alt="" /></div>
+  </section>
+
+  <!-- ===================== REVIEWS ===================== -->
+  <section id="reviews" class="relative pb-24 md:pb-32" data-section="Reviews">
+    <div class="mx-auto max-w-site px-4 md:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
+        <div>
+          <span class="eyebrow" data-reveal>07 — Reviews</span>
+          <h2 class="h2 split text-[40px] md:text-[56px] mt-4" data-split>Patients, in their own words</h2>
+        </div>
+        <div class="flex items-center gap-4" data-reveal style="--d:.15s">
+          <div class="h2 text-[52px]">4.9</div>
+          <div class="leading-tight">
+            <div class="stars text-sm">★★★★★</div>
+            <div class="text-[12px] muted mt-1">1,200+ verified reviews</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-5">
+        <figure class="review card-white rounded-[24px] p-7 flex flex-col justify-between min-h-[300px]" data-reveal>
+          <div>
+            <div class="stars text-[13px]">★★★★★</div>
+            <blockquote class="mt-5 text-[17px] leading-[1.5] tracking-[-0.02em]">“I'd been to three clinics for my acne. Dr. Hale was the first to explain why nothing had worked. Four months later my skin is clear.”</blockquote>
+          </div>
+          <figcaption class="mt-8 flex items-center gap-3">
+            <img class="w-10 h-10 rounded-full object-cover bg-[#e9e1d9]" src="assets/avatar-1.jpg" alt="" />
+            <span class="text-[13px] leading-tight"><b class="font-medium">Maya R.</b><br/><span class="muted">Acne treatment</span></span>
+          </figcaption>
+        </figure>
+        <figure class="review card-white rounded-[24px] p-7 flex flex-col justify-between min-h-[300px] md:translate-y-8" data-reveal style="--d:.1s">
+          <div>
+            <div class="stars text-[13px]">★★★★★</div>
+            <blockquote class="mt-5 text-[17px] leading-[1.5] tracking-[-0.02em]">“The mole mapping took half an hour and they caught something early that my old doctor had missed. I can't recommend them enough.”</blockquote>
+          </div>
+          <figcaption class="mt-8 flex items-center gap-3">
+            <img class="w-10 h-10 rounded-full object-cover bg-[#e9e1d9]" src="assets/avatar-2.jpg" alt="" />
+            <span class="text-[13px] leading-tight"><b class="font-medium">Daniel K.</b><br/><span class="muted">Skin cancer screening</span></span>
+          </figcaption>
+        </figure>
+        <figure class="review card-white rounded-[24px] p-7 flex flex-col justify-between min-h-[300px]" data-reveal style="--d:.2s">
+          <div>
+            <div class="stars text-[13px]">★★★★★</div>
+            <blockquote class="mt-5 text-[17px] leading-[1.5] tracking-[-0.02em]">“My daughter's eczema finally has a plan we can stick to. The follow-up messages between visits made all the difference.”</blockquote>
+          </div>
+          <figcaption class="mt-8 flex items-center gap-3">
+            <img class="w-10 h-10 rounded-full object-cover bg-[#e9e1d9]" src="assets/avatar-3.jpg" alt="" />
+            <span class="text-[13px] leading-tight"><b class="font-medium">Priya S.</b><br/><span class="muted">Pediatric eczema</span></span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BOOKING CTA ===================== -->
+  <section id="book" class="relative pb-6" data-section="Book">
+    <div class="mx-auto max-w-site px-4 md:px-8">
+      <div class="relative rounded-[32px] overflow-hidden min-h-[640px] md:min-h-[600px] flex items-end md:items-center" data-reveal="scale">
+        <div class="media absolute inset-0"><img id="cta-img" class="scale-[1.12] will-change-transform" src="assets/cta.jpg" alt="Clinic reception with a doctor greeting a patient" /></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-black/35 via-black/10 to-transparent"></div>
+        <div class="relative z-[1] w-full grid md:grid-cols-12 gap-6 p-4 md:p-10">
+          <div class="md:col-span-6 text-white self-center hidden md:block">
+            <span class="mono text-[10.5px] tracking-[.16em] uppercase opacity-80">Book a visit</span>
+            <h2 class="h2 text-[56px] lg:text-[76px] mt-4">Your skin,<br/>finally explained</h2>
+          </div>
+          <form class="md:col-span-5 md:col-start-8 glass !bg-white/75 rounded-[24px] p-6 md:p-7" id="book-form" novalidate>
+            <h3 class="h2 text-[28px] md:hidden">Your skin, finally explained</h3>
+            <p class="text-[13px] muted mt-1 md:mt-0">Pick what you need and we'll text you the next available times.</p>
+            <div class="mt-5 grid grid-cols-2 gap-3">
+              <label class="col-span-2 text-[11px] muted">Full name<input class="field mt-1.5 text-ink" name="name" placeholder="Jordan Lee" required /></label>
+              <label class="text-[11px] muted">Phone<input class="field mt-1.5 text-ink" name="phone" type="tel" placeholder="(503) 555-0199" required /></label>
+              <label class="text-[11px] muted">Preferred day
+                <select class="field mt-1.5 text-ink appearance-none" name="day">
+                  <option>This week</option><option>Next week</option><option>Weekends</option>
+                </select>
+              </label>
+            </div>
+            <p class="text-[11px] muted mt-4 mb-2">Reason for visit</p>
+            <div class="flex flex-wrap gap-2" id="reason-chips">
+              <button type="button" class="chip !bg-[#1A1A18] !text-white !border-transparent">Skin check</button>
+              <button type="button" class="chip">Acne</button>
+              <button type="button" class="chip">Eczema</button>
+              <button type="button" class="chip">Cosmetic</button>
+              <button type="button" class="chip">Other</button>
+            </div>
+            <button type="submit" class="btn-peach w-full justify-between mt-6"><span class="label"><span>Request appointment</span><span>Request appointment</span></span><span class="arrow"><i data-lucide="arrow-right" class="w-4 h-4"></i></span></button>
+            <p id="form-msg" class="text-[12px] mt-3 h-4 muted"></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="relative pt-20 pb-8">
+  <div class="mx-auto max-w-site px-4 md:px-8">
+    <div class="grid md:grid-cols-12 gap-10">
+      <div class="md:col-span-4">
+        <a href="#top" data-scroll class="flex items-center gap-2 text-[16px] font-medium tracking-[-0.02em]">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><path d="M12 6.5c-2.6 2.2-3.6 4.2-3.6 6a3.6 3.6 0 0 0 7.2 0c0-1.8-1-3.8-3.6-6Z" fill="#F2A385"/></svg>
+          Clearwell
+        </a>
+        <p class="text-[13px] muted mt-4 max-w-[300px] leading-relaxed">Medical, cosmetic and preventive dermatology for every kind of skin.</p>
+        <form class="mt-6 flex gap-2 max-w-[360px]" id="news-form">
+          <input class="field !h-11 !rounded-full" type="email" placeholder="Email for skin tips" aria-label="Email" />
+          <button class="btn-peach no-arrow !h-11 shrink-0" type="submit">Subscribe</button>
+        </form>
+      </div>
+      <div class="md:col-span-2 text-[13px]">
+        <p class="eyebrow mb-4">Clinic</p>
+        <ul class="space-y-2.5"><li><a class="footer-link" href="#about" data-scroll>About</a></li><li><a class="footer-link" href="#services" data-scroll>Services</a></li><li><a class="footer-link" href="#how" data-scroll>How it works</a></li><li><a class="footer-link" href="#reviews" data-scroll>Reviews</a></li></ul>
+      </div>
+      <div class="md:col-span-2 text-[13px]">
+        <p class="eyebrow mb-4">Care</p>
+        <ul class="space-y-2.5"><li><a class="footer-link" href="#treatments" data-scroll>Treatments</a></li><li><a class="footer-link" href="#conditions" data-scroll>Conditions</a></li><li><a class="footer-link" href="#book" data-scroll>Insurance</a></li><li><a class="footer-link" href="#book" data-scroll>Pricing</a></li></ul>
+      </div>
+      <div class="md:col-span-2 text-[13px]">
+        <p class="eyebrow mb-4">Visit</p>
+        <p class="text-[var(--ink-2)] leading-relaxed">214 Linden Avenue, Suite 3<br/>Portland, OR 97205</p>
+        <p class="text-[var(--ink-2)] mt-3">(503) 555-0142</p>
+      </div>
+      <div class="md:col-span-2 text-[13px]">
+        <p class="eyebrow mb-4">Hours</p>
+        <p class="text-[var(--ink-2)] leading-relaxed">Mon–Fri · 8am–6pm<br/>Sat · 9am–2pm<br/>Sun · Closed</p>
+      </div>
+    </div>
+    <div class="mt-20 select-none overflow-hidden">
+      <div class="display text-[24vw] leading-[.8] tracking-[-0.07em] text-[#E4E2DC] whitespace-nowrap" data-reveal="fade">Clearwell</div>
+    </div>
+    <div class="mt-6 pt-6 border-t border-black/[.08] flex flex-col sm:flex-row gap-3 justify-between text-[12px] muted">
+      <span>© 2026 Clearwell Dermatology. All rights reserved.</span>
+      <span class="flex gap-5"><a class="footer-link" href="#top" data-scroll>Privacy</a><a class="footer-link" href="#top" data-scroll>Terms</a><a class="footer-link" href="#top" data-scroll>Accessibility</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Icons ---------- */
+  if (window.lucide) lucide.createIcons({ attrs: { 'stroke-width': 1.6 } });
+
+  /* ---------- Image fallback ---------- */
+  document.addEventListener('error', (e) => {
+    const img = e.target;
+    if (img.tagName !== 'IMG') return;
+    const holder = img.closest('.media');
+    if (holder) holder.classList.add('is-fallback');
+    else img.style.visibility = 'hidden';
+  }, true);
+
+  /* ---------- Smooth scroll (Lenis) ---------- */
+  let lenis = null;
+  if (window.Lenis && !reduce) {
+    lenis = new Lenis({ duration: 1.15, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
+    const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+    lenis.stop();
+  }
+  const scrollToTarget = (target) => {
+    const el = typeof target === 'string' ? $(target) : target;
+    if (!el) return;
+    if (lenis) lenis.scrollTo(el, { offset: 0, duration: 1.6 });
+    else el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+  };
+
+  /* ---------- Preloader ---------- */
+  const finishLoad = () => {
+    document.body.classList.add('loaded');
+    if (lenis) lenis.start();
+  };
+  window.addEventListener('load', () => setTimeout(finishLoad, reduce ? 0 : 1100));
+  setTimeout(finishLoad, 4000); // safety net if an asset hangs
+
+  /* ---------- Split text ---------- */
+  $$('[data-split]').forEach((el) => {
+    const words = el.textContent.trim().split(/\s+/);
+    el.innerHTML = words.map((w, i) => `<span class="w"><span style="--i:${i}">${w}</span></span>`).join(' ');
+  });
+
+  /* ---------- Reveal on view ---------- */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+  $$('[data-reveal], [data-split]').forEach((el) => io.observe(el));
+
+  /* ---------- Odometer counters (digits roll into place) ---------- */
+  $$('[data-odo]').forEach((el) => {
+    const digits = el.dataset.odo.split('');
+    el.classList.add('odo');
+    el.setAttribute('aria-label', el.dataset.odo);
+    el.innerHTML = digits.map((d, i) => {
+      const nums = Array.from({ length: 20 }, (_, k) => `<span>${k % 10}</span>`).join('');
+      return `<span class="odo-col" aria-hidden="true"><span class="odo-strip" data-d="${d}" style="--dd:${i * 0.12}s">${nums}</span></span>`;
+    }).join('');
+    // size each column to its final digit (after the web font loads) so spacing matches normal text
+    const size = () => {
+      const probe = document.createElement('span');
+      probe.style.cssText = 'position:absolute;visibility:hidden;white-space:pre';
+      el.appendChild(probe);
+      el.querySelectorAll('.odo-col').forEach((col, i) => { probe.textContent = digits[i]; col.style.width = probe.getBoundingClientRect().width + 'px'; });
+      probe.remove();
+    };
+    size();
+    if (document.fonts) document.fonts.ready.then(size);
+  });
+  const odoIO = new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (!en.isIntersecting) return;
+      en.target.querySelectorAll('.odo-strip').forEach((st) => { st.style.transform = `translateY(-${10 + +st.dataset.d}em)`; });
+      odoIO.unobserve(en.target);
+    });
+  }, { threshold: 0.6 });
+  $$('[data-odo]').forEach((el) => odoIO.observe(el));
+
+  /* ---------- Anchor links ---------- */
+  $$('a[data-scroll]').forEach((a) => a.addEventListener('click', (e) => {
+    const href = a.getAttribute('href');
+    if (!href || !href.startsWith('#')) return;
+    e.preventDefault();
+    closeMenu();
+    scrollToTarget(href === '#top' ? document.body : href);
+  }));
+
+  /* ---------- Menu ---------- */
+  const menuBtn = $('#menu-btn');
+  function closeMenu() {
+    document.body.classList.remove('menu-open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+    $('#menu').setAttribute('aria-hidden', 'true');
+    if (lenis) lenis.start();
+  }
+  menuBtn.addEventListener('click', () => {
+    const open = !document.body.classList.contains('menu-open');
+    if (!open) return closeMenu();
+    document.body.classList.add('menu-open');
+    menuBtn.setAttribute('aria-expanded', 'true');
+    $('#menu').setAttribute('aria-hidden', 'false');
+    if (lenis) lenis.stop();
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+
+  /* ---------- Navbar state + section tracker ---------- */
+  const nav = $('#nav');
+  const sections = $$('[data-section]').filter((s) => s.dataset.section !== 'Home');
+  const compactIdx = $('#compact-idx'), compactLabel = $('#compact-label');
+  const navLinks = $$('.nav-links a');
+  let currentSection = -1;
+
+  function setCompact(i) {
+    if (i === currentSection) return;
+    currentSection = i;
+    const name = i < 0 ? 'Home' : sections[i].dataset.section;
+    compactLabel.classList.add('swap');
+    setTimeout(() => {
+      compactIdx.textContent = String(Math.max(0, i) + 1).padStart(2, '0');
+      compactLabel.innerHTML = `<span>${name}</span>`;
+      compactLabel.classList.remove('swap');
+    }, 180);
+    navLinks.forEach((l) => l.classList.toggle('active', l.textContent.trim() === name));
+  }
+  $$('[data-compact]').forEach((b) => b.addEventListener('click', () => {
+    const dir = b.dataset.compact === 'next' ? 1 : -1;
+    const target = clamp(currentSection + dir, 0, sections.length - 1);
+    scrollToTarget(sections[target]);
+  }));
+
+  /* ---------- Services slider ---------- */
+  const slides = $$('.svc-slide'), thumbs = $$('.svc-thumb');
+  const svcText = $('.svc-text'), svcTitle = $('#svc-title'), svcDesc = $('#svc-desc'), svcIdx = $('#svc-idx'), svcBar = $('#svc-bar');
+  let svcI = 0, svcTimer = null;
+  function goSvc(i) {
+    i = (i + slides.length) % slides.length;
+    if (i !== svcI) {
+      slides[svcI].classList.remove('active');
+      slides[i].classList.add('active');
+      thumbs.forEach((t, k) => t.classList.toggle('active', k === i));
+      svcText.classList.add('out');
+      setTimeout(() => {
+        svcTitle.textContent = slides[i].dataset.title;
+        svcDesc.textContent = slides[i].dataset.desc;
+        svcText.classList.remove('out');
+      }, 380);
+      svcIdx.textContent = i + 1;
+      svcI = i;
+    }
+    restartSvc();
+  }
+  function restartSvc() {
+    clearTimeout(svcTimer);
+    svcBar.classList.remove('run'); void svcBar.offsetWidth; svcBar.classList.add('run');
+    svcTimer = setTimeout(() => goSvc(svcI + 1), 6000);
+  }
+  $('#svc-next').addEventListener('click', () => goSvc(svcI + 1));
+  $('#svc-prev').addEventListener('click', () => goSvc(svcI - 1));
+  thumbs.forEach((t) => t.addEventListener('click', () => goSvc(+t.dataset.go)));
+  new IntersectionObserver(([en]) => { if (en.isIntersecting) restartSvc(); else clearTimeout(svcTimer); }, { threshold: 0.3 }).observe($('#svc'));
+  // swipe on touch
+  let sx = null;
+  $('#svc').addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; }, { passive: true });
+  $('#svc').addEventListener('touchend', (e) => {
+    if (sx === null) return;
+    const dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dx) > 40) goSvc(svcI + (dx < 0 ? 1 : -1));
+    sx = null;
+  });
+
+  /* ---------- How it works ---------- */
+  const how = $('#how'), howImgs = $$('.how-img'), howInners = $$('.how-step-inner'), howDots = $$('.how-dot');
+  const howBar = $('#how-bar'), howIdx = $('#how-idx');
+  let howI = 0;
+  function setHow(i) {
+    if (i === howI) return;
+    howI = i;
+    howImgs.forEach((im, k) => im.classList.toggle('active', k === i));
+    howDots.forEach((d, k) => d.classList.toggle('active', k === i));
+    howIdx.textContent = String(i + 1).padStart(2, '0');
+  }
+
+  /* ---------- Treatments ---------- */
+  const tr = $('#treatments'), track = $('#tr-track'), trCards = $$('.tr-card'), trBar = $('#tr-bar');
+
+  /* ---------- Conditions hover image ---------- */
+  const cursorImg = $('#cursor-img'), cursorImgEl = cursorImg.querySelector('img');
+  let cx = 0, cy = 0, tx = 0, ty = 0;
+  $$('.cond-row').forEach((row) => {
+    row.addEventListener('mouseenter', () => {
+      cursorImg.classList.remove('is-fallback');
+      cursorImgEl.src = row.dataset.img;
+      cursorImg.classList.add('show');
+    });
+    row.addEventListener('mouseleave', () => cursorImg.classList.remove('show'));
+  });
+  window.addEventListener('mousemove', (e) => { tx = e.clientX; ty = e.clientY; }, { passive: true });
+
+  /* ---------- Booking form ---------- */
+  $$('#reason-chips .chip').forEach((c) => c.addEventListener('click', () => {
+    $$('#reason-chips .chip').forEach((x) => x.classList.remove('!bg-[#1A1A18]', '!text-white', '!border-transparent'));
+    c.classList.add('!bg-[#1A1A18]', '!text-white', '!border-transparent');
+  }));
+  $('#book-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const f = e.target, msg = $('#form-msg');
+    if (!f.name.value.trim() || !f.phone.value.trim()) {
+      msg.textContent = 'Please add your name and phone number.';
+      msg.style.color = '#C4572F';
+      return;
+    }
+    msg.style.color = '';
+    msg.textContent = `Thanks, ${f.name.value.trim().split(' ')[0]} — we'll text you available times shortly.`;
+    f.reset();
+  });
+  $('#news-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    btn.textContent = 'Subscribed ✓';
+    e.target.querySelector('input').value = '';
+  });
+
+  /* ---------- Main scroll-driven loop ---------- */
+  const heroCopy = $('#hero-copy'), heroMedia = $('#hero-media'), svc = $('#svc');
+  const heroImg = $('#hero-img'), aboutMedia = $('#about-media'), aboutImg = $('#about-img'), ctaImg = $('#cta-img');
+  let lastY = 0;
+  const vh = () => window.innerHeight;
+  const stickyProgress = (el) => {
+    const r = el.getBoundingClientRect();
+    return clamp(-r.top / (r.height - vh()));
+  };
+  const viewProgress = (el) => {
+    const r = el.getBoundingClientRect();
+    return clamp((vh() - r.top) / (vh() + r.height));
+  };
+
+  function frame() {
+    const y = window.scrollY;
+    const H = vh();
+
+    // Nav
+    nav.classList.toggle('scrolled', y > H * 0.55);
+    const goingDown = y > lastY + 2, goingUp = y < lastY - 2;
+    if (!document.body.classList.contains('menu-open')) {
+      if (goingDown && y > H * 1.2 && window.innerWidth < 768) nav.classList.add('hide');
+      if (goingUp) nav.classList.remove('hide');
+    }
+    lastY = y;
+
+    // Active section
+    let idx = -1;
+    sections.forEach((s, i) => { if (s.getBoundingClientRect().top <= H * 0.45) idx = i; });
+    setCompact(idx);
+
+    if (!reduce) {
+      // Hero parallax + exit (text and image ghost out with blur as you leave)
+      const hp = clamp(y / H);
+      heroImg.style.transform = `translate3d(0, ${hp * 12}%, 0) scale(${1.12 - hp * 0.04})`;
+      const ex = clamp((y - H * 0.08) / (H * 0.75));
+      heroCopy.style.opacity = 1 - ex * 0.85;
+      heroCopy.style.filter = ex > 0.01 ? `blur(${ex * 10}px)` : 'none';
+      heroCopy.style.transform = `translate3d(0, ${-ex * 50}px, 0)`;
+      heroMedia.style.opacity = 1 - ex * 0.55;
+      heroMedia.style.filter = ex > 0.01 ? `blur(${ex * 6}px)` : 'none';
+
+      // Services image grows from inset to full width as it enters
+      const sr = svc.getBoundingClientRect();
+      const so = clamp((H - sr.top) / (H * 0.85));
+      svc.style.clipPath = `inset(${lerp(7, 0, so)}% ${lerp(7, 0, so)}% ${lerp(4, 0, so)}% ${lerp(7, 0, so)}% round 28px)`;
+
+      // About image reveal + parallax
+      const ap = viewProgress(aboutMedia);
+      const open = clamp(ap * 2.4);
+      aboutMedia.style.clipPath = `inset(${lerp(10, 0, open)}% ${lerp(8, 0, open)}% 0% ${lerp(8, 0, open)}% round 28px)`;
+      aboutImg.style.transform = `translate3d(0, ${lerp(-6, 6, ap)}%, 0) scale(${lerp(1.18, 1.06, ap)})`;
+
+      // CTA parallax
+      const cp = viewProgress(ctaImg.parentElement);
+      ctaImg.style.transform = `translate3d(0, ${lerp(-5, 5, cp)}%, 0) scale(1.12)`;
+    }
+
+    // How it works: steps scroll naturally; each blurs in below centre and out above it
+    const hr = how.getBoundingClientRect();
+    howBar.style.width = `${clamp(-hr.top / (hr.height - H)) * 100}%`;
+    const desk = window.innerWidth >= 768;
+    let best = 0, bestD = Infinity;
+    howInners.forEach((el, i) => {
+      const r = el.getBoundingClientRect();
+      const d = (r.top + r.height / 2 - H * 0.55) / (H * 0.5);
+      if (Math.abs(d) < bestD) { bestD = Math.abs(d); best = i; }
+      if (desk && !reduce) {
+        const k = clamp((Math.abs(d) - 0.4) * 1.6);
+        el.style.opacity = 1 - k;
+        el.style.filter = k > 0.01 ? `blur(${k * 12}px)` : 'none';
+      } else { el.style.opacity = 1; el.style.filter = 'none'; }
+    });
+    setHow(best);
+
+    // Treatments horizontal
+    const trRect = tr.getBoundingClientRect();
+    const tp = stickyProgress(tr);
+    const maxX = Math.max(0, track.scrollWidth - window.innerWidth);
+    const eased = tp < 0.5 ? 2 * tp * tp : 1 - Math.pow(-2 * tp + 2, 2) / 2;
+    const tpx = lerp(tp, eased, 0.35) * maxX;
+    track.style.transform = `translate3d(${-tpx}px, 0, 0)`;
+    trBar.style.width = `${tp * 100}%`;
+    const W = window.innerWidth;
+    trCards.forEach((c, i) => {
+      const r = c.offsetLeft - tpx + c.offsetWidth / 2; // center x in viewport
+      const n = (r / W) * 2 - 1;                          // -1 .. 1 across viewport
+      // zig-zag that drifts as the row slides, plus a staggered rise as the section arrives
+      const amp = W < 768 ? 12 : 34;
+      const zig = (i % 2 ? 1 : -1) * amp * (0.6 + 0.4 * Math.cos(n * Math.PI * 0.8));
+      const rise = clamp(trRect.top / H) * (140 + i * 60);
+      const yOff = reduce ? 0 : zig + rise;
+      const rot = reduce ? 0 : n * -2.4;
+      c.style.transform = `translate3d(0, ${yOff}px, 0) rotate(${rot}deg)`;
+    });
+
+    // Cursor image (smoothed)
+    cx = lerp(cx, tx, 0.14); cy = lerp(cy, ty, 0.14);
+    cursorImg.style.left = cx + 'px'; cursorImg.style.top = cy + 'px';
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
